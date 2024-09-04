@@ -59,6 +59,170 @@
 
 #include "../ggml-common.h"
 
+
+static void aclnnRepeat_execute(void* workspaceAddr, uint64_t workspaceSize, aclOpExecutor* executor, aclrtStream stream){
+    ACL_CHECK(aclnnRepeat(workspaceAddr, workspaceSize, executor, stream));
+}
+
+
+static void aclnnInplaceCopy_execute(void* workspaceAddr, uint64_t workspaceSize, aclOpExecutor* executor, aclrtStream stream){
+    ACL_CHECK(aclnnInplaceCopy(workspaceAddr, workspaceSize, executor, stream));
+}
+
+
+static void aclnnAdd_execute(void* workspaceAddr, uint64_t workspaceSize, aclOpExecutor* executor, aclrtStream stream){
+    ACL_CHECK(aclnnAdd(workspaceAddr, workspaceSize, executor, stream));
+}
+
+
+static void aclnnInplaceAdd_execute(void* workspaceAddr, uint64_t workspaceSize, aclOpExecutor* executor, aclrtStream stream){
+    ACL_CHECK(aclnnInplaceAdd(workspaceAddr, workspaceSize, executor, stream));
+}
+
+
+static void aclnnLayerNorm_execute(void* workspaceAddr, uint64_t workspaceSize, aclOpExecutor* executor, aclrtStream stream){
+    ACL_CHECK(aclnnLayerNorm(workspaceAddr, workspaceSize, executor, stream));
+}
+ 
+
+static void aclnnGroupNorm_execute(void* workspaceAddr, uint64_t workspaceSize, aclOpExecutor* executor, aclrtStream stream){
+    ACL_CHECK(aclnnGroupNorm(workspaceAddr, workspaceSize, executor, stream));
+}
+
+
+static void aclnnCat_execute(void* workspaceAddr, uint64_t workspaceSize, aclOpExecutor* executor, aclrtStream stream){
+    ACL_CHECK(aclnnCat(workspaceAddr, workspaceSize, executor, stream));
+}
+
+
+static void aclnnUpsampleNearest2d_execute(void* workspaceAddr, uint64_t workspaceSize, aclOpExecutor* executor, aclrtStream stream){
+    ACL_CHECK(aclnnUpsampleNearest2d(workspaceAddr, workspaceSize, executor,stream));
+}
+
+
+static void aclnnConstantPadNd_execute(void* workspaceAddr, uint64_t workspaceSize, aclOpExecutor* executor, aclrtStream stream){
+    ACL_CHECK(aclnnConstantPadNd(workspaceAddr, workspaceSize, executor,stream));
+}
+
+
+static void aclnnArange_execute(void* workspaceAddr, uint64_t workspaceSize, aclOpExecutor* executor, aclrtStream stream){
+    ACL_CHECK(aclnnArange(workspaceAddr, workspaceSize, executor, stream));
+}
+
+
+static void aclnnInplaceMuls_execute(void* workspaceAddr, uint64_t workspaceSize, aclOpExecutor* executor, aclrtStream stream){
+    ACL_CHECK(aclnnInplaceMuls(workspaceAddr, workspaceSize, executor,stream));
+}
+
+
+static void aclnnMuls_execute(void* workspaceAddr, uint64_t workspaceSize, aclOpExecutor* executor, aclrtStream stream){
+    ACL_CHECK(aclnnMuls(workspaceAddr, workspaceSize, executor, stream));
+}
+
+
+static void aclnnInplaceExp_execute(void* workspaceAddr, uint64_t workspaceSize, aclOpExecutor* executor, aclrtStream stream){
+    ACL_CHECK(
+        aclnnInplaceExp(workspaceAddr, workspaceSize, executor, stream));
+}
+
+
+static void aclnnLeakyRelu_execute(void* workspaceAddr, uint64_t workspaceSize, aclOpExecutor* executor, aclrtStream stream){
+    ACL_CHECK(
+        aclnnLeakyRelu(workspaceAddr, workspaceSize, executor, stream));
+}
+
+
+
+static void aclnnMatmul_execute(void* workspaceAddr, uint64_t workspaceSize, aclOpExecutor* executor, aclrtStream stream){
+    ACL_CHECK(
+        aclnnMatmul(workspaceAddr, workspaceSize, executor, stream));
+}
+
+
+static void aclnnWeightQuantBatchMatmulV2_execute(void* workspaceAddr, uint64_t workspaceSize, aclOpExecutor* executor, aclrtStream stream){
+    ACL_CHECK(
+        aclnnWeightQuantBatchMatmulV2(workspaceAddr, workspaceSize, executor, stream));
+}
+
+
+static void aclnnClamp_execute(void* workspaceAddr, uint64_t workspaceSize, aclOpExecutor* executor, aclrtStream stream){
+    ACL_CHECK(aclnnClamp(workspaceAddr, workspaceSize, executor, stream));
+}
+
+
+
+static void aclnnInplaceTriu_execute(void* workspaceAddr, uint64_t workspaceSize, aclOpExecutor* executor, aclrtStream stream){
+    ACL_CHECK(
+        aclnnInplaceTriu(workspaceAddr, workspaceSize, executor, stream));
+}
+
+
+
+static void aclnnTril_execute(void* workspaceAddr, uint64_t workspaceSize, aclOpExecutor* executor, aclrtStream stream){
+    ACL_CHECK(
+        aclnnTril(workspaceAddr, workspaceSize, executor, stream));
+}
+
+
+static void aclnnPermute_execute(void* workspaceAddr, uint64_t workspaceSize, aclOpExecutor* executor, aclrtStream stream){
+    ACL_CHECK(
+        aclnnPermute(workspaceAddr, workspaceSize, executor, stream));
+}
+
+
+static void aclnnMul_execute(void* workspaceAddr, uint64_t workspaceSize, aclOpExecutor* executor, aclrtStream stream){
+    ACL_CHECK(aclnnMul(workspaceAddr, workspaceSize, executor, stream));
+}
+
+
+static void aclnnCos_execute(void* workspaceAddr, uint64_t workspaceSize, aclOpExecutor* executor, aclrtStream stream){
+    ACL_CHECK(aclnnCos(workspaceAddr, workspaceSize, executor, stream));
+}
+
+
+
+static void aclnnSin_execute(void* workspaceAddr, uint64_t workspaceSize, aclOpExecutor* executor, aclrtStream stream){
+    ACL_CHECK(aclnnSin(workspaceAddr, workspaceSize, executor, stream));
+}
+
+
+
+static void aclnnCast_execute(void* workspaceAddr, uint64_t workspaceSize, aclOpExecutor* executor, aclrtStream stream){
+    ACL_CHECK(aclnnCast(workspaceAddr, workspaceSize, executor, stream));
+}
+
+
+static void aclnnInplaceAdds_execute(void* workspaceAddr, uint64_t workspaceSize, aclOpExecutor* executor, aclrtStream stream){
+    ACL_CHECK(aclnnInplaceAdds(workspaceAddr, workspaceSize, executor, stream));
+}
+
+
+static void aclnnInplacePowTensorTensor_execute(void* workspaceAddr, uint64_t workspaceSize, aclOpExecutor* executor, aclrtStream stream){
+    ACL_CHECK(aclnnInplacePowTensorTensor(workspaceAddr, workspaceSize, executor, stream));
+}
+
+
+static void aclnnRepeatInterleaveIntWithDim_execute(void* workspaceAddr, uint64_t workspaceSize, aclOpExecutor* executor, aclrtStream stream){
+    ACL_CHECK(aclnnRepeatInterleaveIntWithDim(workspaceAddr, workspaceSize, executor, stream));
+}
+
+
+static void aclnnReduceSum_execute(void* workspaceAddr, uint64_t workspaceSize, aclOpExecutor* executor, aclrtStream stream){
+    ACL_CHECK(aclnnReduceSum(workspaceAddr, workspaceSize, executor, stream));
+}
+
+
+static void aclnnArgsort_execute(void* workspaceAddr, uint64_t workspaceSize, aclOpExecutor* executor, aclrtStream stream){
+    ACL_CHECK(aclnnArgsort(workspaceAddr, workspaceSize, executor, stream));
+}
+
+
+// static void aclnnArgsort_execute(void* workspaceAddr, uint64_t workspaceSize, aclOpExecutor* executor, aclrtStream stream){
+//     ACL_CHECK(aclnnArgsort(workspaceAddr, workspaceSize, executor, stream));
+// }
+// task tsk = {"aclnnArgsort_execute", &aclnnArgsort_execute, workspaceAddr, workspaceSize, executor, ctx.stream()};
+// ctx.task_q.submit_tsk(tsk);
+
 /**
  * @brief Repeats elements of a tensor along each dimension according to the
  * specified repeat array.
@@ -89,8 +253,9 @@ static void aclnn_repeat(ggml_backend_cann_context& ctx, aclTensor* acl_src,
         ggml_cann_pool_alloc workspace_allocator(ctx.pool(), workspaceSize);
         workspaceAddr = workspace_allocator.get();
     }
-    ACL_CHECK(
-        aclnnRepeat(workspaceAddr, workspaceSize, executor, ctx.stream()));
+    task tsk = {"repeat", &aclnnRepeat_execute, workspaceAddr, workspaceSize, executor, ctx.stream()};
+    ctx.task_q.submit_tsk(tsk);
+    // ACL_CHECK(aclnnRepeat(workspaceAddr, workspaceSize, executor, ctx.stream()));
     ACL_CHECK(aclDestroyIntArray(repeats));
 }
 
@@ -140,7 +305,8 @@ static void aclnn_add(ggml_backend_cann_context& ctx, aclTensor* acl_src0,
         ggml_cann_pool_alloc workspace_allocator(ctx.pool(), workspaceSize);
         workspaceAddr = workspace_allocator.get();
     }
-
+    // task tsk = {"add", &aclnnAdd_execute, workspaceAddr, workspaceSize, executor, ctx.stream()};
+    // ctx.task_q.submit_tsk(tsk);
     ACL_CHECK(aclnnAdd(workspaceAddr, workspaceSize, executor, ctx.stream()));
 
     ACL_CHECK(aclDestroyScalar(alpha));
@@ -199,8 +365,10 @@ void ggml_cann_leaky_relu(ggml_backend_cann_context& ctx, ggml_tensor* dst) {
         workspaceAddr = workspace_allocator.get();
     }
 
-    ACL_CHECK(
-        aclnnLeakyRelu(workspaceAddr, workspaceSize, executor, ctx.stream()));
+    // ACL_CHECK(
+    //     aclnnLeakyRelu(workspaceAddr, workspaceSize, executor, ctx.stream()));
+    task tsk = {"aclnnLeakyRelu_execute", &aclnnLeakyRelu_execute, workspaceAddr, workspaceSize, executor, ctx.stream()};
+    ctx.task_q.submit_tsk(tsk);
 
     ACL_CHECK(aclDestroyScalar(acl_negative_slope));
     ACL_CHECK(aclDestroyTensor(acl_src));
@@ -231,7 +399,9 @@ static void aclnn_concat(ggml_backend_cann_context& ctx,
         workspaceAddr = workspace_allocator.get();
     }
 
-    ACL_CHECK(aclnnCat(workspaceAddr, workspaceSize, executor, ctx.stream()));
+    task tsk = {"aclnnCat_execute", &aclnnCat_execute, workspaceAddr, workspaceSize, executor, ctx.stream()};
+    ctx.task_q.submit_tsk(tsk);
+    // ACL_CHECK(aclnnCat(workspaceAddr, workspaceSize, executor, ctx.stream()));
 }
 
 void ggml_cann_concat(ggml_backend_cann_context& ctx, ggml_tensor* dst) {
@@ -287,9 +457,10 @@ static void aclnn_arange(ggml_backend_cann_context& ctx, aclTensor* acl_dst,
         ggml_cann_pool_alloc workspace_allocator(ctx.pool(), workspaceSize);
         workspaceAddr = workspace_allocator.get();
     }
-
-    ACL_CHECK(
-        aclnnArange(workspaceAddr, workspaceSize, executor, ctx.stream()));
+    task tsk = {"aclnnArange_execute", &aclnnArange_execute, workspaceAddr, workspaceSize, executor, ctx.stream()};
+    ctx.task_q.submit_tsk(tsk);
+    // ACL_CHECK(
+    //     aclnnArange(workspaceAddr, workspaceSize, executor, ctx.stream()));
 
     ACL_CHECK(aclDestroyScalar(acl_start));
     ACL_CHECK(aclDestroyScalar(acl_end));
@@ -345,7 +516,9 @@ void ggml_cann_clamp(ggml_backend_cann_context& ctx, ggml_tensor* dst) {
         workspaceAddr = workspace_allocator.get();
     }
 
-    ACL_CHECK(aclnnClamp(workspaceAddr, workspaceSize, executor, ctx.stream()));
+    // ACL_CHECK(aclnnClamp(workspaceAddr, workspaceSize, executor, ctx.stream()));
+    task tsk = {"aclnnClamp_execute", &aclnnClamp_execute, workspaceAddr, workspaceSize, executor, ctx.stream()};
+    ctx.task_q.submit_tsk(tsk);
 
     ACL_CHECK(aclDestroyScalar(acl_min));
     ACL_CHECK(aclDestroyScalar(acl_max));
@@ -375,7 +548,9 @@ void ggml_cann_scale(ggml_backend_cann_context& ctx, ggml_tensor* dst) {
         workspaceAddr = workspace_allocator.get();
     }
 
-    ACL_CHECK(aclnnMuls(workspaceAddr, workspaceSize, executor, ctx.stream()));
+    // ACL_CHECK(aclnnMuls(workspaceAddr, workspaceSize, executor, ctx.stream()));
+    task tsk = {"aclnnMuls_execute", &aclnnMuls_execute, workspaceAddr, workspaceSize, executor, ctx.stream()};
+    ctx.task_q.submit_tsk(tsk);
 
     ACL_CHECK(aclDestroyScalar(scale));
     ACL_CHECK(aclDestroyTensor(acl_src));
@@ -407,9 +582,9 @@ void ggml_cann_argsort(ggml_backend_cann_context& ctx, ggml_tensor* dst) {
         workspaceAddr = workspace_allocator.get();
     }
 
-    ACL_CHECK(
-        aclnnArgsort(workspaceAddr, workspaceSize, executor, ctx.stream()));
-
+    ACL_CHECK(aclnnArgsort(workspaceAddr, workspaceSize, executor, ctx.stream()));
+    // task tsk = {"aclnnArgsort_execute", &aclnnArgsort_execute, workspaceAddr, workspaceSize, executor, ctx.stream()};
+    // ctx.task_q.submit_tsk(tsk);
     workspaceSize = 0;
     ACL_CHECK(aclnnCastGetWorkspaceSize(tmp_tensor,
                                         ggml_cann_type_mapping(dst->type),
@@ -419,6 +594,8 @@ void ggml_cann_argsort(ggml_backend_cann_context& ctx, ggml_tensor* dst) {
         workspaceAddr = workspace_allocator.get();
     }
 
+    // task tsk1 = {"aclnnCast_execute", &aclnnCast_execute, workspaceAddr, workspaceSize, executor, ctx.stream()};
+    // ctx.task_q.submit_tsk(tsk1);
     ACL_CHECK(aclnnCast(workspaceAddr, workspaceSize, executor, ctx.stream()));
 
     ACL_CHECK(aclDestroyTensor(acl_src));
@@ -450,8 +627,10 @@ void ggml_cann_norm(ggml_backend_cann_context& ctx, ggml_tensor* dst) {
         workspaceAddr = workspace_allocator.get();
     }
 
-    ACL_CHECK(
-        aclnnLayerNorm(workspaceAddr, workspaceSize, executor, ctx.stream()));
+    task tsk = {"aclnnLayerNorm", &aclnnLayerNorm_execute, workspaceAddr, workspaceSize, executor, ctx.stream()};
+    ctx.task_q.submit_tsk(tsk);
+    // ACL_CHECK(
+    //     aclnnLayerNorm(workspaceAddr, workspaceSize, executor, ctx.stream()));
 
     ACL_CHECK(aclDestroyIntArray(norm));
     ACL_CHECK(aclDestroyTensor(acl_src));
@@ -498,8 +677,10 @@ void ggml_cann_group_norm(ggml_backend_cann_context& ctx, ggml_tensor* dst) {
         workspaceAddr = workspace_allocator.get();
     }
 
-    ACL_CHECK(
-        aclnnGroupNorm(workspaceAddr, workspaceSize, executor, ctx.stream()));
+    task tsk = {"aclnnGroupNorm", &aclnnGroupNorm_execute, workspaceAddr, workspaceSize, executor, ctx.stream()};
+    ctx.task_q.submit_tsk(tsk);
+    // ACL_CHECK(
+    //     aclnnGroupNorm(workspaceAddr, workspaceSize, executor, ctx.stream()));
 
     ACL_CHECK(aclDestroyTensor(acl_src));
     ACL_CHECK(aclDestroyTensor(acl_dst));
@@ -543,6 +724,9 @@ void ggml_cann_acc(ggml_backend_cann_context& ctx, ggml_tensor* dst) {
             ggml_cann_pool_alloc workspace_allocator(ctx.pool(), workspaceSize);
             workspaceAddr = workspace_allocator.get();
         }
+
+        // task tsk = {"add", &aclnnAdd_execute, workspaceAddr, workspaceSize, executor, ctx.stream()};
+        // ctx.task_q.submit_tsk(tsk);
         ACL_CHECK(
             aclnnAdd(workspaceAddr, workspaceSize, executor, ctx.stream()));
         ACL_CHECK(aclDestroyTensor(acl_src0));
@@ -553,12 +737,18 @@ void ggml_cann_acc(ggml_backend_cann_context& ctx, ggml_tensor* dst) {
             ggml_cann_pool_alloc workspace_allocator(ctx.pool(), workspaceSize);
             workspaceAddr = workspace_allocator.get();
         }
+        // task tsk = {"aclnnInplaceAdd", &aclnnInplaceAdd_execute, workspaceAddr, workspaceSize, executor, ctx.stream()};
+        // ctx.task_q.submit_tsk(tsk); 
         ACL_CHECK(aclnnInplaceAdd(workspaceAddr, workspaceSize, executor,
                                   ctx.stream()));
     }
 
     ACL_CHECK(aclDestroyTensor(acl_src1));
     ACL_CHECK(aclDestroyTensor(acl_dst));
+}
+
+static void aclnn_add_execute(void* workspaceAddr, uint64_t workspaceSize, aclOpExecutor* executor, aclrtStream stream){
+    ACL_CHECK(aclnnAdd(workspaceAddr, workspaceSize, executor, stream));
 }
 
 void ggml_cann_sum_rows(ggml_backend_cann_context& ctx, ggml_tensor* dst) {
@@ -584,9 +774,10 @@ void ggml_cann_sum_rows(ggml_backend_cann_context& ctx, ggml_tensor* dst) {
         workspaceAddr = workspace_allocator.get();
     }
 
-    ACL_CHECK(
-        aclnnReduceSum(workspaceAddr, workspaceSize, executor, ctx.stream()));
-
+    // ACL_CHECK(
+    //     aclnnReduceSum(workspaceAddr, workspaceSize, executor, ctx.stream()));
+    task tsk = {"aclnnReduceSum_execute", &aclnnReduceSum_execute, workspaceAddr, workspaceSize, executor, ctx.stream()};
+    ctx.task_q.submit_tsk(tsk);
     ACL_CHECK(aclDestroyTensor(acl_src));
     ACL_CHECK(aclDestroyTensor(acl_dst));
 }
@@ -613,8 +804,10 @@ void ggml_cann_upsample_nearest2d(ggml_backend_cann_context& ctx,
         workspaceAddr = workspace_allocator.get();
     }
 
-    ACL_CHECK(aclnnUpsampleNearest2d(workspaceAddr, workspaceSize, executor,
-                                     ctx.stream()));
+    task tsk = {"aclnnUpsampleNearest2d", &aclnnUpsampleNearest2d_execute, workspaceAddr, workspaceSize, executor, ctx.stream()};
+    ctx.task_q.submit_tsk(tsk);
+    // ACL_CHECK(aclnnUpsampleNearest2d(workspaceAddr, workspaceSize, executor,
+    //                                  ctx.stream()));
 
     ACL_CHECK(aclDestroyIntArray(output_size_array));
     ACL_CHECK(aclDestroyTensor(acl_src));
@@ -653,6 +846,8 @@ static void aclnn_pad(ggml_backend_cann_context& ctx, aclTensor* acl_src,
         workspaceAddr = workspace_allocator.get();
     }
 
+    // task tsk = {"aclnnConstantPadNd", &aclnnConstantPadNd_execute, workspaceAddr, workspaceSize, executor, ctx.stream()};
+    // ctx.task_q.submit_tsk(tsk);
     ACL_CHECK(aclnnConstantPadNd(workspaceAddr, workspaceSize, executor,
                                  ctx.stream()));
 
@@ -874,9 +1069,10 @@ static void cann_copy(ggml_backend_cann_context& ctx, aclTensor* acl_src,
         ggml_cann_pool_alloc workspace_allocator(ctx.pool(), workspaceSize);
         workspaceAddr = workspace_allocator.get();
     }
-
-    ACL_CHECK(
-        aclnnInplaceCopy(workspaceAddr, workspaceSize, executor, ctx.stream()));
+    task tsk = {"aclnnInplaceCopy", &aclnnInplaceCopy_execute, workspaceAddr, workspaceSize, executor, ctx.stream()};
+    ctx.task_q.submit_tsk(tsk);
+    // ACL_CHECK(
+    //     aclnnInplaceCopy(workspaceAddr, workspaceSize, executor, ctx.stream()));
 }
 
 void ggml_cann_dup(ggml_backend_cann_context& ctx, ggml_tensor* dst) {
@@ -1134,10 +1330,16 @@ static aclTensor* aclnn_ones(ggml_backend_cann_context& ctx, void* buffer,
         ggml_cann_pool_alloc workspace_allocator(ctx.pool(), workspaceSize);
         workspaceAddr = workspace_allocator.get();
     }
-    ACL_CHECK(
-        aclnnInplaceAdds(workspaceAddr, workspaceSize, executor, ctx.stream()));
-
+    // ACL_CHECK(
+    //     aclnnInplaceAdds(workspaceAddr, workspaceSize, executor, ctx.stream()));
+    task tsk = {"aclnnInplaceAdds_execute", &aclnnInplaceAdds_execute, workspaceAddr, workspaceSize, executor, ctx.stream()};
+    ctx.task_q.submit_tsk(tsk);
     return acl_tensor;
+}
+
+static void aclnnRmsNorm_execute(void* workspaceAddr, uint64_t workspaceSize, aclOpExecutor* executor, aclrtStream stream){
+    ACL_CHECK(
+        aclnnRmsNorm(workspaceAddr, workspaceSize, executor, stream));
 }
 
 void ggml_cann_rms_norm(ggml_backend_cann_context& ctx, ggml_tensor* dst) {
@@ -1178,8 +1380,10 @@ void ggml_cann_rms_norm(ggml_backend_cann_context& ctx, ggml_tensor* dst) {
         workspaceAddr = workspace_allocator.get();
     }
 
-    ACL_CHECK(
-        aclnnRmsNorm(workspaceAddr, workspaceSize, executor, ctx.stream()));
+    // ACL_CHECK(
+    //     aclnnRmsNorm(workspaceAddr, workspaceSize, executor, ctx.stream()));
+    task tsk = {"aclnnRmsNorm_execute", &aclnnRmsNorm_execute, workspaceAddr, workspaceSize, executor, ctx.stream()};
+    ctx.task_q.submit_tsk(tsk);
 
     ACL_CHECK(aclDestroyTensor(acl_src));
     ACL_CHECK(aclDestroyTensor(acl_dst));
@@ -1217,8 +1421,10 @@ void ggml_cann_diag_mask(ggml_backend_cann_context& ctx, ggml_tensor* dst,
         workspaceAddr = workspace_allocator.get();
     }
 
-    ACL_CHECK(
-        aclnnInplaceTriu(workspaceAddr, workspaceSize, executor, ctx.stream()));
+    // ACL_CHECK(
+    //     aclnnInplaceTriu(workspaceAddr, workspaceSize, executor, ctx.stream()));
+    task tsk = {"aclnnInplaceTriu_execute", &aclnnInplaceTriu_execute, workspaceAddr, workspaceSize, executor, ctx.stream()};
+    ctx.task_q.submit_tsk(tsk);
 
     ACL_CHECK(aclnnTrilGetWorkspaceSize(acl_src, n_past + 1, acl_dst,
                                         &workspaceSize, &executor));
@@ -1227,7 +1433,9 @@ void ggml_cann_diag_mask(ggml_backend_cann_context& ctx, ggml_tensor* dst,
         workspaceAddr = workspace_allocator.get();
     }
 
-    ACL_CHECK(aclnnTril(workspaceAddr, workspaceSize, executor, ctx.stream()));
+    // ACL_CHECK(aclnnTril(workspaceAddr, workspaceSize, executor, ctx.stream()));
+    task tsk1 = {"aclnnTril_execute", &aclnnTril_execute, workspaceAddr, workspaceSize, executor, ctx.stream()};
+    ctx.task_q.submit_tsk(tsk1);
 
     aclScalar* alpha = nullptr;
     float alphaValue = 1.0f;
@@ -1239,8 +1447,10 @@ void ggml_cann_diag_mask(ggml_backend_cann_context& ctx, ggml_tensor* dst,
         ggml_cann_pool_alloc workspace_allocator(ctx.pool(), workspaceSize);
         workspaceAddr = workspace_allocator.get();
     }
-    ACL_CHECK(
-        aclnnInplaceAdd(workspaceAddr, workspaceSize, executor, ctx.stream()));
+    // ACL_CHECK(
+    //     aclnnInplaceAdd(workspaceAddr, workspaceSize, executor, ctx.stream()));
+    task tsk2 = {"aclnnInplaceAdd_execute", &aclnnInplaceAdd_execute, workspaceAddr, workspaceSize, executor, ctx.stream()};
+    ctx.task_q.submit_tsk(tsk2);
 
     ACL_CHECK(aclDestroyScalar(alpha));
     ACL_CHECK(aclDestroyTensor(mask_tensor));
@@ -1273,7 +1483,8 @@ static void aclnn_cast(ggml_backend_cann_context& ctx, aclTensor* acl_src,
         ggml_cann_pool_alloc workspace_allocator(ctx.pool(), workspaceSize);
         workspaceAddr = workspace_allocator.get();
     }
-
+    // task tsk = {"aclnnCast_execute", &aclnnCast_execute, workspaceAddr, workspaceSize, executor, ctx.stream()};
+    // ctx.task_q.submit_tsk(tsk);
     ACL_CHECK(aclnnCast(workspaceAddr, workspaceSize, executor, ctx.stream()));
 }
 
@@ -1307,9 +1518,9 @@ static void aclnn_permute(ggml_backend_cann_context& ctx, aclTensor* acl_src,
         workspaceAddr = workspace_allocator.get();
     }
 
-    ACL_CHECK(
-        aclnnPermute(workspaceAddr, workspaceSize, executor, ctx.stream()));
-
+    ACL_CHECK(aclnnPermute(workspaceAddr, workspaceSize, executor, ctx.stream()));
+    // task tsk = {"aclnnPermute_execute", &aclnnPermute_execute, workspaceAddr, workspaceSize, executor, ctx.stream()};
+    // ctx.task_q.submit_tsk(tsk);
     ACL_CHECK(aclDestroyIntArray(acl_dims));
 }
 
@@ -1433,6 +1644,10 @@ static void ggml_cann_im2col_1d_post_process(
     ACL_CHECK(aclDestroyTensor(tmp_permute_tensor));
 }
 
+static void aclnnIm2col_execute(void* workspaceAddr, uint64_t workspaceSize, aclOpExecutor* executor, aclrtStream stream){
+    ACL_CHECK(aclnnIm2col(workspaceAddr, workspaceSize, executor, stream));
+}
+
 void ggml_cann_im2col(ggml_backend_cann_context& ctx, ggml_tensor* dst) {
     ggml_tensor* src0 = dst->src[0];  // kernel
     ggml_tensor* src1 = dst->src[1];  // input
@@ -1516,6 +1731,8 @@ void ggml_cann_im2col(ggml_backend_cann_context& ctx, ggml_tensor* dst) {
 
     ACL_CHECK(
         aclnnIm2col(workspaceAddr, workspaceSize, executor, ctx.stream()));
+    // task tsk = {"aclnnIm2col_execute", &aclnnIm2col_execute, workspaceAddr, workspaceSize, executor, ctx.stream()};
+    // ctx.task_q.submit_tsk(tsk);
 
     // Cast if dst is f16.
     aclTensor* tmp_cast_tensor = nullptr;
@@ -1584,8 +1801,10 @@ static void aclnn_exp(ggml_backend_cann_context& ctx, aclTensor* acl_src) {
         workspaceAddr = workspace_allocator.get();
     }
 
-    ACL_CHECK(
-        aclnnInplaceExp(workspaceAddr, workspaceSize, executor, ctx.stream()));
+    // ACL_CHECK(
+    //     aclnnInplaceExp(workspaceAddr, workspaceSize, executor, ctx.stream()));
+    task tsk = {"aclnnInplaceExp_execute", &aclnnInplaceExp_execute, workspaceAddr, workspaceSize, executor, ctx.stream()};
+    ctx.task_q.submit_tsk(tsk);
 }
 
 /**
@@ -1625,7 +1844,8 @@ static void aclnn_muls(ggml_backend_cann_context& ctx, aclTensor* acl_src,
             ggml_cann_pool_alloc workspace_allocator(ctx.pool(), workspaceSize);
             workspaceAddr = workspace_allocator.get();
         }
-
+        // task tsk = {"aclnnInplaceMuls_execute", &aclnnInplaceMuls_execute, workspaceAddr, workspaceSize, executor, ctx.stream()};
+        // ctx.task_q.submit_tsk(tsk);
         ACL_CHECK(aclnnInplaceMuls(workspaceAddr, workspaceSize, executor,
                                    ctx.stream()));
     } else {
@@ -1638,6 +1858,8 @@ static void aclnn_muls(ggml_backend_cann_context& ctx, aclTensor* acl_src,
 
         ACL_CHECK(
             aclnnMuls(workspaceAddr, workspaceSize, executor, ctx.stream()));
+        // task tsk = {"aclnnMuls_execute", &aclnnMuls_execute, workspaceAddr, workspaceSize, executor, ctx.stream()};
+        // ctx.task_q.submit_tsk(tsk);
     }
 
     ACL_CHECK(aclDestroyScalar(acl_scale));
@@ -1703,8 +1925,9 @@ static void aclnn_mul(ggml_backend_cann_context& ctx, aclTensor* acl_src,
         ggml_cann_pool_alloc workspace_allocator(ctx.pool(), workspaceSize);
         workspaceAddr = workspace_allocator.get();
     }
-
-    ACL_CHECK(aclnnMul(workspaceAddr, workspaceSize, executor, ctx.stream()));
+    task tsk = {"aclnnMul_execute", &aclnnMul_execute, workspaceAddr, workspaceSize, executor, ctx.stream()};
+    ctx.task_q.submit_tsk(tsk);
+    // ACL_CHECK(aclnnMul(workspaceAddr, workspaceSize, executor, ctx.stream()));
 }
 
 /**
@@ -1733,8 +1956,9 @@ static void aclnn_cos(ggml_backend_cann_context& ctx, aclTensor* acl_src,
         ggml_cann_pool_alloc workspace_allocator(ctx.pool(), workspaceSize);
         workspaceAddr = workspace_allocator.get();
     }
-
-    ACL_CHECK(aclnnCos(workspaceAddr, workspaceSize, executor, ctx.stream()));
+    task tsk = {"aclnnCos_execute", &aclnnCos_execute, workspaceAddr, workspaceSize, executor, ctx.stream()};
+    ctx.task_q.submit_tsk(tsk);
+    // ACL_CHECK(aclnnCos(workspaceAddr, workspaceSize, executor, ctx.stream()));
 }
 
 /**
@@ -1764,8 +1988,9 @@ static void aclnn_sin(ggml_backend_cann_context& ctx, aclTensor* acl_src,
         ggml_cann_pool_alloc workspace_allocator(ctx.pool(), workspaceSize);
         workspaceAddr = workspace_allocator.get();
     }
-
-    ACL_CHECK(aclnnSin(workspaceAddr, workspaceSize, executor, ctx.stream()));
+    task tsk = {"aclnnSin_execute", &aclnnSin_execute, workspaceAddr, workspaceSize, executor, ctx.stream()};
+    ctx.task_q.submit_tsk(tsk);
+    // ACL_CHECK(aclnnSin(workspaceAddr, workspaceSize, executor, ctx.stream()));
 }
 
 void ggml_cann_timestep_embedding(ggml_backend_cann_context& ctx,
@@ -1940,9 +2165,10 @@ static void aclnn_pow_tensor_tensor(ggml_backend_cann_context& ctx,
         ggml_cann_pool_alloc workspace_allocator(ctx.pool(), workspaceSize);
         workspaceAddr = workspace_allocator.get();
     }
-
-    ACL_CHECK(aclnnInplacePowTensorTensor(workspaceAddr, workspaceSize,
-                                          executor, ctx.stream()));
+    task tsk = {"aclnnInplacePowTensorTensor_execute", &aclnnInplacePowTensorTensor_execute, workspaceAddr, workspaceSize, executor, ctx.stream()};
+    ctx.task_q.submit_tsk(tsk);
+    // ACL_CHECK(aclnnInplacePowTensorTensor(workspaceAddr, workspaceSize,
+    //                                       executor, ctx.stream()));
 }
 
 /**
@@ -2382,8 +2608,10 @@ static void aclnn_repeat_interleave(ggml_backend_cann_context& ctx,
         workspaceAddr = workspace_allocator.get();
     }
 
-    ACL_CHECK(aclnnRepeatInterleaveIntWithDim(workspaceAddr, workspaceSize,
-                                              executor, ctx.stream()));
+    // ACL_CHECK(aclnnRepeatInterleaveIntWithDim(workspaceAddr, workspaceSize,
+    //                                           executor, ctx.stream()));
+    task tsk = {"aclnnRepeatInterleaveIntWithDim_execute", &aclnnRepeatInterleaveIntWithDim_execute, workspaceAddr, workspaceSize, executor, ctx.stream()};
+    ctx.task_q.submit_tsk(tsk);
 }
 
 /**
@@ -2421,8 +2649,9 @@ static void aclnn_mat_mul(ggml_backend_cann_context& ctx, aclTensor* acl_input,
         workspaceAddr = workspace_allocator.get();
     }
 
-    ACL_CHECK(
-        aclnnMatmul(workspaceAddr, workspaceSize, executor, ctx.stream()));
+    ACL_CHECK(aclnnMatmul(workspaceAddr, workspaceSize, executor, ctx.stream()));
+    // task tsk = {"aclnnMatmul_execute", &aclnnMatmul_execute, workspaceAddr, workspaceSize, executor, ctx.stream()};
+    // ctx.task_q.submit_tsk(tsk);
 }
 
 /**
@@ -2590,8 +2819,9 @@ static void ggml_cann_mul_mat_quant(ggml_backend_cann_context& ctx,
                 workspaceAddr = workspace_allocator.get();
             }
 
-            ACL_CHECK(aclnnWeightQuantBatchMatmulV2(
-                workspaceAddr, workspaceSize, executor, ctx.stream()));
+            ACL_CHECK(aclnnWeightQuantBatchMatmulV2(workspaceAddr, workspaceSize, executor, ctx.stream()));
+            // task tsk = {"aclnnWeightQuantBatchMatmulV2_execute", &aclnnWeightQuantBatchMatmulV2_execute, workspaceAddr, workspaceSize, executor, ctx.stream()};
+            // ctx.task_q.submit_tsk(tsk);
 
             ACL_CHECK(aclDestroyTensor(acl_input_tensor));
             ACL_CHECK(aclDestroyTensor(acl_weight_tensor));

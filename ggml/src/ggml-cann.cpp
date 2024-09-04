@@ -29,6 +29,7 @@
 #include <cstdio>
 #include <cstring>
 #include <mutex>
+#include <thread>
 
 #include "ggml-backend-impl.h"
 #include "ggml-cann/aclnn_ops.h"
@@ -1249,7 +1250,7 @@ static bool ggml_cann_compute_forward(ggml_backend_cann_context& ctx,
             ggml_cann_add(ctx, dst);
             break;
         case GGML_OP_ACC:
-            ggml_cann_acc(ctx, dst);
+            ggml_cann_acc(ctx, dst);  // 负优化，维持不动
             break;
         case GGML_OP_MUL:
             ggml_cann_mul_div<aclnnMulGetWorkspaceSize, aclnnMul>(ctx, dst);
@@ -1299,10 +1300,10 @@ static bool ggml_cann_compute_forward(ggml_backend_cann_context& ctx,
             ggml_cann_group_norm(ctx, dst);
             break;
         case GGML_OP_CONCAT:
-            ggml_cann_concat(ctx, dst);
+            ggml_cann_concat(ctx, dst);  // 报错参数维度不等
             break;
         case GGML_OP_UPSCALE:
-            ggml_cann_upsample_nearest2d(ctx, dst);
+            ggml_cann_upsample_nearest2d(ctx, dst);  // 原算子报错
             break;
         case GGML_OP_PAD:
             ggml_cann_pad(ctx, dst);
@@ -1320,7 +1321,7 @@ static bool ggml_cann_compute_forward(ggml_backend_cann_context& ctx,
             ggml_cann_rms_norm(ctx, dst);
             break;
         case GGML_OP_MUL_MAT:
-            ggml_cann_mul_mat(ctx, dst);
+            ggml_cann_mul_mat(ctx, dst);  // 修改前后相同的报错问题，已修改
             break;
         case GGML_OP_MUL_MAT_ID:
             return false;
@@ -1334,7 +1335,7 @@ static bool ggml_cann_compute_forward(ggml_backend_cann_context& ctx,
             ggml_cann_clamp(ctx, dst);
             break;
         case GGML_OP_CPY:
-            ggml_cann_cpy(ctx, dst);
+            ggml_cann_cpy(ctx, dst); // 测试偶尔出现算子错误
             break;
         case GGML_OP_CONT:
             ggml_cann_dup(ctx, dst);
@@ -1346,19 +1347,19 @@ static bool ggml_cann_compute_forward(ggml_backend_cann_context& ctx,
         case GGML_OP_TRANSPOSE:
             break;
         case GGML_OP_DIAG_MASK_INF:
-            ggml_cann_diag_mask(ctx, dst, -INFINITY);
+            ggml_cann_diag_mask(ctx, dst, -INFINITY);  // 报错
             break;
         case GGML_OP_SOFT_MAX:
-            ggml_cann_softmax(ctx, dst);
+            ggml_cann_softmax(ctx, dst);  // 报错
             break;
         case GGML_OP_ROPE:
-            ggml_cann_rope(ctx, dst);
+            ggml_cann_rope(ctx, dst);// 报错
             break;
         case GGML_OP_IM2COL:
-            ggml_cann_im2col(ctx, dst);
+            ggml_cann_im2col(ctx, dst); //修改后一个算子精度报错
             break;
         case GGML_OP_POOL_2D:
-            ggml_cann_pool2d(ctx, dst);
+            ggml_cann_pool2d(ctx, dst); // 报错
             break;
         case GGML_OP_SUM_ROWS:
             ggml_cann_sum_rows(ctx, dst);
@@ -1587,7 +1588,7 @@ GGML_CALL static void ggml_backend_cann_synchronize(ggml_backend_t backend) {
         (ggml_backend_cann_context*)backend->context;
 
     ggml_cann_set_device(cann_ctx->device);
-
+    cann_ctx->task_q.sync();
     ACL_CHECK(aclrtSynchronizeStream(cann_ctx->stream()));
 }
 

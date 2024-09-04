@@ -31,6 +31,10 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include <queue>
+#include <mutex>
+#include <thread>
+#include <condition_variable>
 
 #include "../include/ggml-cann.h"
 #include "../include/ggml.h"
@@ -204,7 +208,68 @@ struct ggml_cann_pool_alloc {
     // Deleted move assignment operator
     ggml_cann_pool_alloc& operator=(ggml_cann_pool_alloc&&) = delete;
 };
+#include <unistd.h>
+/**
+ * @brief Contains information about CANN task.
+ */
+typedef struct acl_ops_task{
+    std::string name;
+    void (*func) (void*, uint64_t, aclOpExecutor*, aclrtStream);
+    void* workspaceAddr;
+    uint64_t workspaceSize;
+    aclOpExecutor* executor;
+    aclrtStream stream;
+ } task;
 
+
+struct task_queue{
+    std::queue<task> queue;
+    std::mutex mtx;
+    std::condition_variable cv;
+    int32_t device;
+    // bool state = false;
+    bool thread_state= false;
+    // std::thread t_thread;
+
+    void submit_tsk(task tsk){
+        // std::unique_lock<std::mutex> lock(mtx);
+        mtx.lock();
+        queue.push(tsk);
+        mtx.unlock();
+        // lock.unlock();
+        if(!thread_state) {
+            std::thread(&task_queue::execute_queue_task, this, device).detach();
+            thread_state = true;
+        }
+        // cv.notify_one();
+    }
+
+    void execute_queue_task(int device){
+        ggml_cann_set_device(device);
+        while (1){
+            // std::unique_lock<std::mutex> lock(mtx);
+            // cv.wait(lock, [&]{return !queue.empty(); });
+            // if(state) break;
+            if(queue.empty())  continue;
+            mtx.lock();
+            task tsk = queue.front();
+            // printf("executor in work thread: %p\n", tsk.executor); 
+            tsk.func(tsk.workspaceAddr, tsk.workspaceSize, tsk.executor, tsk.stream);
+            queue.pop();
+            mtx.unlock();
+        }
+    }
+
+    void sync() {
+        while(!queue.empty()){}
+    }
+
+    ~task_queue(){
+        // state = true;
+        // cv.notify_one();
+
+    }
+ };
 /**
  * @brief Context for managing CANN backend operations.
  */
@@ -212,6 +277,7 @@ struct ggml_backend_cann_context {
     int32_t device;                  /**< Device ID. */
     std::string name;                /**< Name of the device. */
     aclrtEvent copy_event = nullptr; /**< Event for managing copy operations. */
+    struct task_queue task_q;
 
     aclrtStream streams[GGML_CANN_MAX_STREAMS] = {
         {nullptr}}; /**< Array of streams for the device. */
@@ -221,7 +287,9 @@ struct ggml_backend_cann_context {
      * @param device Device ID.
      */
     explicit ggml_backend_cann_context(int device)
-        : device(device), name("CANN" + std::to_string(device)) {}
+        : device(device), name("CANN" + std::to_string(device)) {
+            task_q.device = device;
+        }
 
     /**
      * @brief Destructor for cleaning up resources.

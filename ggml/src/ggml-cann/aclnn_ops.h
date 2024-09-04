@@ -484,6 +484,10 @@ void ggml_cann_mul_mat(ggml_backend_cann_context& ctx, ggml_tensor* dst);
  */
 void ggml_cann_rope(ggml_backend_cann_context& ctx, ggml_tensor* dst);
 
+// void aclexecute_execute(void* workspaceAddr, uint64_t workspaceSize, aclOpExecutor* executor, aclrtStream stream){
+//     ACL_CHECK(execute(workspaceAddr, workspaceSize, executor, main_stream));
+// }
+
 template <aclnnStatus getWorkspaceSize(const aclTensor*, const aclTensor*,
                                        aclTensor*, uint64_t*, aclOpExecutor**),
           aclnnStatus execute(void*, uint64_t, aclOpExecutor*, aclrtStream)>
@@ -521,6 +525,8 @@ void ggml_cann_mul_div(ggml_backend_cann_context& ctx, ggml_tensor* dst) {
 
     aclrtStream main_stream = ctx.stream();
     ACL_CHECK(execute(workspaceAddr, workspaceSize, executor, main_stream));
+    // task tsk = {"aclexecute_execute", &aclexecute_execute, workspaceAddr, workspaceSize, executor, ctx.stream()};
+    // ctx.task_q.submit_tsk(tsk);
 
     ACL_CHECK(aclDestroyTensor(acl_src0));
     ACL_CHECK(aclDestroyTensor(acl_src1));
